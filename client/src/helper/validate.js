@@ -1,8 +1,18 @@
 import toast from "react-hot-toast";
+import { authenticate } from "./helper";
 
 /**Validate login username */
 export async function usernamevalidate(values){
     const errors = await usernameverify({}, values);
+
+    if(values.username){
+        const {status} = await authenticate(values.username);
+
+        if(status !== 200){
+            errors.exist = toast.error("User does not exist...!");
+        }
+
+    }
     return errors;
 }
 
@@ -21,7 +31,7 @@ function usernameverify(error = {}, values){
 
 function passwordverify(error = {}, values){
 
-    const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    const specialChars = /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
 
     if(!values.password){
         error.password = toast.error('Password required...!');
@@ -44,6 +54,18 @@ export async function passwordValidate(values){
     return errors;
 }
 
+/** Validate email */
+function emailVerify(error = {}, values){
+    if(!values.email){
+        error.email = toast.error("Email required...!");
+    }
+    else if(!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/i.test(values.email)){
+        error.email = toast.error("Invalid email address...!")
+    }
+
+    return error;
+}
+
 /** Validate reset password */
 export async function resetPasswordValidation(values){
     const errors = await passwordverify({}, values);
@@ -54,4 +76,19 @@ export async function resetPasswordValidation(values){
 
     return errors;
 
+}
+
+/** Validate user register page */
+export async function userRegisterValidation(values){
+    const errors = usernameverify({}, values);
+    passwordverify(errors, values);
+    emailVerify(errors, values);
+
+    return errors;
+}
+
+/** Validate profile page */
+export async function profileValidation(values){
+    const errors = emailVerify({}, values);
+    return errors;
 }
