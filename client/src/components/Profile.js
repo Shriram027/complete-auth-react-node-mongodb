@@ -10,6 +10,7 @@ import { updateUser } from "../helper/helper";
 
 
 import styles from "../styles/UserName.module.css";
+import extend from "../styles/Profile.module.css";
 
 
 
@@ -42,7 +43,6 @@ export default function Profile() {
         success : <b>Update Successfully...!</b>,
         error: <b>Could not Update...!</b>
       });
-      console.log(values);
     }
   })
 
@@ -57,15 +57,15 @@ function userLogout(){
   navigate('/')
 }
 
-if(isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;
+if(isLoading) return <h1 className='text-2xl font-bold'>Loading</h1>;
 if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message}</h1>
 
 
   return (
     <div className="container mx-auto">
-      <Toaster position="top-center"></Toaster>
+      <Toaster position="top-center" reverseOrder={false}></Toaster>
       <div className="flex justify-center items-center h-screen">
-        <div className={styles.glass} style={{width:"45%", paddingTop:'3em', height:'90%'}}>
+        <div className={`${styles.glass} ${extend.glass}`} style={{width:"45%", paddingTop:'3em', height:'90%'}}>
           <div className="title flex flex-col items-center">
             <h6 className="text-5xl font-bold">Profile</h6>
             <span className="py-4 text-xl w-2/3 text-center text-gray-500">
@@ -75,22 +75,22 @@ if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message
           <form  onSubmit={formik.handleSubmit}>
             <div className="profile flex justify-center items-center py-2">
               <label htmlFor="profile">
-              <img className={styles.profile_img} src={apiData?.profile || file || avatar} alt="avatar" />
+              <img className={`${styles.profile_img} ${extend.profile_img}`} src={apiData?.profile || file || avatar} alt="avatar" />
               </label>
               <input  onChange={onUpload}  type="file"  id='profile' name="profile"/>
             </div>
             <div className="textbox flex flex-col items-center gap-6">
               <div className="name flex w-3/4 gap-10">
-              <input {...formik.getFieldProps('firstname')}  className={styles.textbox} type="text" placeholder="Firstname" />
-              <input {...formik.getFieldProps('lastname')}  className={styles.textbox} type="text" placeholder="Lastname" />
+              <input {...formik.getFieldProps('firstname')}  className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder="Firstname" />
+              <input {...formik.getFieldProps('lastname')}  className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder="Lastname" />
               </div>
 
               <div className="name flex w-3/4 gap-10">
-              <input {...formik.getFieldProps('mobile')}  className={styles.textbox} type="text" placeholder="Mobile" />
-              <input {...formik.getFieldProps('email')}  className={styles.textbox} type="email" placeholder="Email" />
+              <input {...formik.getFieldProps('mobile')}  className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder="Mobile" />
+              <input {...formik.getFieldProps('email')}  className={`${styles.textbox} ${extend.textbox}`} type="email" placeholder="Email" />
               </div>
 
-              <input {...formik.getFieldProps('address')}  className={styles.textbox} type="text" placeholder="Address" />
+              <input {...formik.getFieldProps('address')}  className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder="Address" />
               <button className={styles.btn} type="submit">Update</button>
             </div>
             <div className="text-center py-4">

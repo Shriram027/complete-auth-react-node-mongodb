@@ -31,7 +31,6 @@ const formik = useFormik({
       success: <b>Register Successfully...!</b>,
       error: <b>Could not register...!</b>
     })
-    console.log(values);
     registerPromise.then(function(){navigate('/')})
   }
 })

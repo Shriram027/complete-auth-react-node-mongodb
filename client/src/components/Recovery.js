@@ -15,7 +15,7 @@ const navigate = useNavigate();
 
 useEffect(()=>{
   generateOTP(username).then((OTP) =>{
-    console.log(OTP);
+    
     if(OTP) return toast.success("OTP has been sent to your registered email...!");
     return toast.error('Problem while generating OTP!')
   })
@@ -31,7 +31,7 @@ async function onSubmit(e){
       return navigate('/reset')
     }  
   } catch (error) {
-    return toast.error('Wront OTP! Check email again!')
+    return toast.error('Wrong OTP! Check email again!')
   }
 }
 
@@ -49,7 +49,6 @@ function resendOTP(){
   );
 
   sentPromise.then((OTP) => {
-    console.log(OTP)
   });
   
 }
@@ -79,7 +78,7 @@ function resendOTP(){
                 />
               </div>
               <button className={styles.btn} type="submit">
-                Sign in
+               Recover
               </button>
             </div>
             <div className="text-center py-4">

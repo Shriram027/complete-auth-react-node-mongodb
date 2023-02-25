@@ -25,6 +25,7 @@ export async function verifyUser(req, res, next) {
 
 export async function register(req, res) {
   try {
+    
     const { username, password, profile, email } = req.body;
 
     // check the existing user
@@ -191,7 +192,7 @@ export async function createResetSession(req, res) {
   if (req.app.locals.resetSession) {
     return res.status(201).send({ flag: req.app.locals.resetSession });
   }
-  return res.status(440).send({ error: "Session expired!" });
+  return res.status(404).send({ error: "Session expired!" });
 }
 
 export async function resetPassword(req, res) {
